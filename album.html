@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Album Foto | Nayla Talita</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --primary-light: #5dade2;
+            --primary-dark: #2c3e50;
+            --accent: #85c1e9;
+            --light: #f8f9fa;
+            --gray: #e8ecef;
+            --text: #2c3e50;
+            --text-light: #5d6d7e;
+            --white: #ffffff;
+            --shadow: rgba(44, 62, 80, 0.08);
+            --shadow-hover: rgba(44, 62, 80, 0.12);
+            --instagram: #E4405F;
+            --whatsapp: #25D366;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            66% {
+                transform: translateY(10px) rotate(-5deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .album-header {
+            background-color: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 600;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            background: rgba(52, 152, 219, 0.1);
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .back-btn:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: translateX(-5px);
+        }
+
+        .back-btn i {
+            transition: transform 0.3s;
+        }
+
+        .back-btn:hover i {
+            transform: translateX(-3px);
+        }
+
+        .album-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .album-title span {
+            color: var(--primary-dark);
+        }
+
+        .album-hero {
+            padding: 12rem 0 6rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8ecef 100%);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .hero-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-light), var(--accent));
+            opacity: 0.1;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        .hero-shape-1 {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .hero-shape-2 {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 10%;
+            animation-delay: -5s;
+        }
+
+        .hero-shape-3 {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 15%;
+            animation-delay: -10s;
+        }
+
+        .album-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .album-hero .highlight {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .album-hero .highlight:after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 8px;
+            background: rgba(133, 193, 233, 0.3);
+            bottom: 5px;
+            left: 0;
+            z-index: -1;
+            animation: pulse 2s infinite;
+        }
+
+        .album-hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .music-note {
+            font-size: 2rem;
+            color: var(--primary);
+            animation: bounce 2s infinite;
+            margin-top: 1rem;
+            display: block;
+        }
+
+        .gallery-section {
+            padding: 6rem 0;
+            background-color: var(--gray);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .gallery-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .photo-frame-item {
+            perspective: 1000px;
+            animation: fadeInUp 0.6s ease-out both;
+        }
+
+        .frame {
+            position: relative;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        .photo-frame-item:nth-child(1) .frame { animation-delay: 0s; }
+        .photo-frame-item:nth-child(2) .frame { animation-delay: -2s; }
+        .photo-frame-item:nth-child(3) .frame { animation-delay: -4s; }
+        .photo-frame-item:nth-child(4) .frame { animation-delay: -6s; }
+        .photo-frame-item:nth-child(5) .frame { animation-delay: -8s; }
+        .photo-frame-item:nth-child(6) .frame { animation-delay: -10s; }
+        .photo-frame-item:nth-child(7) .frame { animation-delay: -12s; }
+        .photo-frame-item:nth-child(8) .frame { animation-delay: -14s; }
+
+        .frame:hover {
+            animation-play-state: paused;
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .frame-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .frame-1 .frame-content {
+            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+        }
+
+        .frame-2 .frame-content {
+            background: linear-gradient(45deg, var(--accent), #5dade2);
+        }
+
+        .frame-3 .frame-content {
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+        }
+
+        .frame-4 .frame-content {
+            background: linear-gradient(45deg, var(--primary-dark), #3498db);
+        }
+
+        .frame-5 .frame-content {
+            background: linear-gradient(45deg, #5dade2, var(--accent));
+        }
+
+        .frame-6 .frame-content {
+            background: linear-gradient(45deg, var(--primary), #85c1e9);
+        }
+
+        .frame-7 .frame-content {
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+        }
+
+        .frame-8 .frame-content {
+            background: linear-gradient(45deg, var(--primary-light), var(--accent));
+        }
+
+        .frame:before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .frame:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .frame-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+            z-index: 3;
+        }
+
+        .frame:hover .frame-overlay {
+            transform: translateY(0);
+        }
+
+        .frame-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .frame-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo span {
+            color: var(--accent);
+        }
+
+        .footer-quote {
+            font-style: italic;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .footer-info {
+            margin: 2rem 0;
+        }
+
+        .footer-info p {
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-top:hover {
+            background: var(--primary-light);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 1024px) {
+            .album-hero h1 {
+                font-size: 3rem;
+            }
+
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+
+            .frame {
+                height: 280px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .album-hero {
+                padding: 10rem 0 4rem;
+            }
+
+            .album-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .frame {
+                height: 250px;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .back-btn {
+                order: 2;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .album-hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .gallery-container {
+                grid-template-columns: 1fr;
+            }
+
+            .frame {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="album-header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Profil
+                </a>
+                <div class="album-title">
+                    <i class="fas fa-images"></i> Album <span>🫶</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="album-hero">
+        <div class="hero-shapes">
+            <div class="hero-shape hero-shape-1"></div>
+            <div class="hero-shape hero-shape-2"></div>
+            <div class="hero-shape hero-shape-3"></div>
+        </div>
+        <div class="container">
+            <h1>Album Foto <span class="highlight"></span></h1>
+            <span class="music-note"><i class=""></i>Ayaaaaa🫶</span>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+    <div class="container">
+        <h2 class="section-title">Kenangan Indah🫶</h2>
+        
+        <div class="gallery-container">
+            <div class="photo-frame-item">
+                <div class="frame frame-1">
+                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
+                        <img src="1.JPG" alt="Momen Bahagia" 
+                             style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-frame-item">
+                <div class="frame frame-2">
+                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
+                        <img src="2.JPG" alt="Senyum Indah" 
+                             style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="frame-overlay">
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-frame-item">
+                <div class="frame frame-3">
+                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
+                        <img src="3.JPG" alt="Prestasi" 
+                             style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="frame-overlay">
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-frame-item">
+                <div class="frame frame-4">
+                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
+                        <img src="4.JPG" alt="Foto Kreatif" 
+                             style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="frame-overlay">
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-frame-item">
+                <div class="frame frame-5">
+                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
+                        <img src="5.JPG" alt="Belajar" 
+                             style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="frame-overlay">
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-frame-item">
+                <div class="frame frame-6">
+                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
+                        <img src="6.JPG" alt="Kegiatan Seni" 
+                             style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="frame-overlay">
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-frame-item">
+                <div class="frame frame-7">
+                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
+                        <img src="7.JPG" alt="Liburan" 
+                             style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="frame-overlay">
+                    </div>
+                </div>
+            </div>
+
+            <div class="photo-frame-item">
+                <div class="frame frame-8">
+                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
+                        <img src="8.JPG" alt="Pencapaian" 
+                             style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="frame-overlay">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <footer>
+        <div class="container">
+            <a href="index.html" class="footer-logo">Album<span>🫶</span></a>
+
+            <p class="footer-quote">"Waktu memisahkan raga,
+foto menjadi saksi bahwa kebersamaan itu pernah nyata."</p>
+
+            <div class="footer-info">
+                <p><i class="fas fa-images"></i> Album Kenangan Nayla Talita</p>
+                <p><i class="fas fa-music"></i> Lagu: Kota Ini Tak Sama Tanpamu</p>
+                <p><i class="fas fa-heart"></i> Setiap foto adalah kenangan berharga</p>
+                <p><i class="fas fa-user-graduate"></i> Pelajar Kelas 11 SMA</p>
+                <p><i class="fas fa-school"></i> Pondok Modern As Salam Sukoharjo</p>
+                <p><i class="fas fa-birthday-cake"></i> Lahir: 27 Juni 2009</p>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2025 Album Foto Nayla Talita. Semua kenangan dilindungi cintaKu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="scroll-top" id="scrollTop">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <audio id="backgroundMusic" loop style="display: none;">
+        <source src="Nadhif Basalamah - kota ini tak sama tanpamu (Official Lyric Video).mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <script>
+        const audio = document.getElementById('backgroundMusic');
+        
+        function playMusicAutomatically() {
+            audio.volume = 0.5; 
+            
+            const playPromise = audio.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Musik berhasil diputar otomatis");
+                }).catch(error => {
+                    console.log("Autoplay dicegah:", error);
+                    showPlayHint();
+                });
+            }
+        }
+        
+        function showPlayHint() {
+            const hint = document.createElement('div');
+            hint.innerHTML = `
+                <div style="position: fixed; top: 120px; left: 50%; transform: translateX(-50%); 
+                           background: rgba(52, 152, 219, 0.9); padding: 12px 20px; border-radius: 25px; 
+                           box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 10000; text-align: center;
+                           color: white; font-weight: 500; cursor: pointer; backdrop-filter: blur(10px);
+                           border: 2px solid white; min-width: 300px;">
+                    <i class="fas fa-music" style="margin-right: 8px;"></i>
+                    <span>Klik untuk memutar musik "Kota Ini Tak Sama Tanpamu"</span>
+                </div>
+            `;
+            document.body.appendChild(hint);
+            
+            hint.addEventListener('click', function() {
+                audio.play();
+                hint.style.opacity = '0';
+                setTimeout(() => hint.remove(), 500);
+            });
+            
+            setTimeout(() => {
+                if (hint.parentNode) {
+                    hint.style.opacity = '0';
+                    setTimeout(() => hint.remove(), 500);
+                }
+            }, 15000);
+        }
+        
+        window.addEventListener('load', () => {
+            setTimeout(playMusicAutomatically, 1000);
+        });
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollTopBtn = document.getElementById('scrollTop');
+            
+            if (scrollTop > 500) {
+                scrollTopBtn.classList.add('active');
+            } else {
+                scrollTopBtn.classList.remove('active');
+            }
+        });
+
+        document.getElementById('scrollTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        const animateFrames = () => {
+            const frames = document.querySelectorAll('.photo-frame-item');
+            
+            frames.forEach((frame, index) => {
+                const framePosition = frame.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (framePosition < screenPosition) {
+                    frame.style.animationDelay = `${index * 0.1}s`;
+                    frame.style.opacity = '1';
+                }
+            });
+        };
+
+        window.addEventListener('load', animateFrames);
+        window.addEventListener('scroll', animateFrames);
+
+        document.querySelectorAll('.frame').forEach(frame => {
+            frame.addEventListener('click', function() {
+                this.style.animation = 'pulse 0.5s ease';
+                setTimeout(() => {
+                    this.style.animation = '';
+                }, 500);
+                const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3');
+                clickSound.volume = 0.3;
+                clickSound.play().catch(e => console.log("Sound play error:", e));
+            });
+            
+            frame.addEventListener('mouseenter', function() {
+                if (!audio.paused) {
+                    audio.volume = 0.3; 
+                }
+            });
+            
+            frame.addEventListener('mouseleave', function() {
+                if (!audio.paused) {
+                    audio.volume = 0.5; 
+                }
+            });
+        });
+
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && audio.paused) {
+                audio.play().catch(e => console.log("Play error on visibility change:", e));
+            }
+        });
+    </script>
+</body>
+</html>
