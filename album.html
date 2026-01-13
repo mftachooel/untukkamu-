@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Album Foto | Nayla Talita</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #3498db;
@@ -17,10 +17,12 @@
             --text: #2c3e50;
             --text-light: #5d6d7e;
             --white: #ffffff;
-            --shadow: rgba(44, 62, 80, 0.08);
-            --shadow-hover: rgba(44, 62, 80, 0.12);
+            --shadow: rgba(44, 62, 80, 0.1);
+            --shadow-hover: rgba(44, 62, 80, 0.2);
             --instagram: #E4405F;
             --whatsapp: #25D366;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
         * {
@@ -34,11 +36,14 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
             color: var(--text);
             background-color: var(--light);
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(93, 173, 226, 0.03) 0%, transparent 50%);
         }
 
         h1, h2, h3, h4 {
@@ -49,15 +54,16 @@
 
         .container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -70,47 +76,37 @@
                 transform: translateY(0) rotate(0deg);
             }
             33% {
-                transform: translateY(-20px) rotate(5deg);
+                transform: translateY(-25px) rotate(3deg);
             }
             66% {
-                transform: translateY(10px) rotate(-5deg);
+                transform: translateY(15px) rotate(-3deg);
             }
         }
 
         @keyframes pulse {
             0%, 100% {
                 transform: scale(1);
+                box-shadow: 0 15px 40px rgba(52, 152, 219, 0.2);
             }
             50% {
                 transform: scale(1.05);
+                box-shadow: 0 25px 60px rgba(52, 152, 219, 0.3);
             }
         }
 
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(52, 152, 219, 0.4);
             }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
+            50% {
+                box-shadow: 0 0 30px rgba(52, 152, 219, 0.6);
             }
         }
 
         @keyframes slideInLeft {
             from {
                 opacity: 0;
-                transform: translateX(-50px);
+                transform: translateX(-60px);
             }
             to {
                 opacity: 1;
@@ -121,7 +117,7 @@
         @keyframes slideInRight {
             from {
                 opacity: 0;
-                transform: translateX(50px);
+                transform: translateX(60px);
             }
             to {
                 opacity: 1;
@@ -129,15 +125,39 @@
             }
         }
 
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Header */
         .album-header {
-            background-color: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px var(--shadow);
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            padding: 1rem 0;
+            padding: 1.2rem 0;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.1);
+            animation: fadeInUp 0.6s ease-out;
         }
 
         .header-content {
@@ -149,20 +169,39 @@
         .back-btn {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             text-decoration: none;
             color: var(--primary);
             font-weight: 600;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-            background: rgba(52, 152, 219, 0.1);
+            padding: 0.9rem 2rem;
+            border-radius: 15px;
+            transition: var(--transition);
+            background: rgba(52, 152, 219, 0.12);
             animation: slideInLeft 0.8s ease-out;
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .back-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s;
         }
 
         .back-btn:hover {
             background: rgba(52, 152, 219, 0.2);
-            transform: translateX(-5px);
+            transform: translateX(-8px);
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.2);
+        }
+
+        .back-btn:hover:before {
+            left: 100%;
         }
 
         .back-btn i {
@@ -170,22 +209,30 @@
         }
 
         .back-btn:hover i {
-            transform: translateX(-3px);
+            transform: translateX(-5px);
         }
 
         .album-title {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: var(--primary);
             animation: slideInRight 0.8s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .album-title span {
             color: var(--primary-dark);
         }
 
+        /* Hero Section */
         .album-hero {
-            padding: 12rem 0 6rem;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e8ecef 100%);
+            padding: 15rem 0 8rem;
+            background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%);
             position: relative;
             overflow: hidden;
             text-align: center;
@@ -204,42 +251,48 @@
             position: absolute;
             border-radius: 50%;
             background: linear-gradient(45deg, var(--primary-light), var(--accent));
-            opacity: 0.1;
-            animation: float 15s infinite ease-in-out;
+            opacity: 0.15;
+            animation: float 20s infinite ease-in-out;
+            filter: blur(1px);
         }
 
         .hero-shape-1 {
-            width: 300px;
-            height: 300px;
-            top: 10%;
+            width: 400px;
+            height: 400px;
+            top: 5%;
             left: 5%;
             animation-delay: 0s;
         }
 
         .hero-shape-2 {
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             top: 60%;
-            right: 10%;
-            animation-delay: -5s;
+            right: 8%;
+            animation-delay: -7s;
         }
 
         .hero-shape-3 {
-            width: 150px;
-            height: 150px;
-            bottom: 20%;
+            width: 200px;
+            height: 200px;
+            bottom: 15%;
             left: 15%;
-            animation-delay: -10s;
+            animation-delay: -12s;
         }
 
         .album-hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
             animation: fadeInUp 0.8s ease-out;
+            background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            display: inline-block;
         }
 
         .album-hero .highlight {
-            color: var(--primary);
             position: relative;
             display: inline-block;
         }
@@ -248,76 +301,83 @@
             content: '';
             position: absolute;
             width: 100%;
-            height: 8px;
-            background: rgba(133, 193, 233, 0.3);
-            bottom: 5px;
+            height: 12px;
+            background: rgba(133, 193, 233, 0.4);
+            bottom: 8px;
             left: 0;
             z-index: -1;
-            animation: pulse 2s infinite;
-        }
-
-        .album-hero p {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto 3rem;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+            border-radius: 6px;
+            animation: pulse 3s infinite;
         }
 
         .music-note {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--primary);
-            animation: bounce 2s infinite;
-            margin-top: 1rem;
+            animation: float 3s infinite ease-in-out;
+            margin-top: 2rem;
             display: block;
+            background: rgba(52, 152, 219, 0.1);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin: 2rem auto;
+            box-shadow: 0 10px 30px rgba(52, 152, 219, 0.2);
         }
 
+        /* Gallery Section */
         .gallery-section {
-            padding: 6rem 0;
-            background-color: var(--gray);
+            padding: 8rem 0;
+            position: relative;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2.8rem;
-            margin-bottom: 4rem;
+            font-size: 3.5rem;
+            margin-bottom: 5rem;
             position: relative;
             animation: fadeInUp 0.8s ease-out both;
+            background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         .section-title:after {
             content: '';
             position: absolute;
-            width: 80px;
-            height: 4px;
-            background: var(--primary);
-            bottom: -15px;
+            width: 120px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            bottom: -20px;
             left: 50%;
             transform: translateX(-50%);
-            border-radius: 2px;
+            border-radius: 3px;
         }
 
         .gallery-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
         }
 
         .photo-frame-item {
-            perspective: 1000px;
+            perspective: 1200px;
             animation: fadeInUp 0.6s ease-out both;
+            transition: var(--transition);
         }
 
         .frame {
             position: relative;
-            height: 300px;
-            border-radius: 15px;
+            height: 350px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            transition: var(--transition);
             cursor: pointer;
-            animation: float 8s infinite ease-in-out;
+            animation: float 10s infinite ease-in-out;
+            transform-style: preserve-3d;
         }
 
         .photo-frame-item:nth-child(1) .frame { animation-delay: 0s; }
@@ -331,65 +391,63 @@
 
         .frame:hover {
             animation-play-state: paused;
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            transform: translateY(-20px) scale(1.08) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.25);
+            animation: glow 2s infinite alternate;
         }
 
         .frame-content {
             width: 100%;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: white;
             position: relative;
             overflow: hidden;
         }
 
-        .frame-1 .frame-content {
-            background: linear-gradient(45deg, var(--primary), var(--primary-light));
+        .frame-content:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(52, 152, 219, 0.2), rgba(93, 173, 226, 0.2));
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.4s;
         }
 
-        .frame-2 .frame-content {
-            background: linear-gradient(45deg, var(--accent), #5dade2);
+        .frame:hover .frame-content:before {
+            opacity: 1;
         }
 
-        .frame-3 .frame-content {
-            background: linear-gradient(45deg, #3498db, #2c3e50);
+        .frame-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
         }
 
-        .frame-4 .frame-content {
-            background: linear-gradient(45deg, var(--primary-dark), #3498db);
-        }
-
-        .frame-5 .frame-content {
-            background: linear-gradient(45deg, #5dade2, var(--accent));
-        }
-
-        .frame-6 .frame-content {
-            background: linear-gradient(45deg, var(--primary), #85c1e9);
-        }
-
-        .frame-7 .frame-content {
-            background: linear-gradient(45deg, #2c3e50, #3498db);
-        }
-
-        .frame-8 .frame-content {
-            background: linear-gradient(45deg, var(--primary-light), var(--accent));
+        .frame:hover .frame-content img {
+            transform: scale(1.15);
         }
 
         .frame:before {
             content: '';
             position: absolute;
-            top: 10px;
-            left: 10px;
-            right: 10px;
-            bottom: 10px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            z-index: 2;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 3px solid rgba(255, 255, 255, 0.4);
+            border-radius: 15px;
+            z-index: 3;
             pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .frame:hover:before {
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: scale(0.98);
         }
 
         .frame:after {
@@ -399,10 +457,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            z-index: 1;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            z-index: 2;
             pointer-events: none;
+            box-shadow: inset 0 0 40px rgba(255, 255, 255, 0.3);
         }
 
         .frame-overlay {
@@ -410,12 +469,15 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
             color: white;
-            padding: 1.5rem;
+            padding: 2rem;
             transform: translateY(100%);
-            transition: transform 0.3s;
-            z-index: 3;
+            transition: transform 0.4s;
+            z-index: 4;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .frame:hover .frame-overlay {
@@ -423,30 +485,178 @@
         }
 
         .frame-title {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .frame-title i {
+            color: var(--accent);
         }
 
         .frame-date {
-            font-size: 0.9rem;
-            opacity: 0.8;
+            font-size: 1rem;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        footer {
-            background-color: var(--primary-dark);
+        .frame-date i {
+            font-size: 0.9rem;
+        }
+
+        /* Music Player */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            transition: var(--transition);
+            animation: fadeInUp 0.8s ease-out 1s both;
+        }
+
+        .music-player:hover {
+            transform: translateX(-50%) translateY(-5px);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
+            border-color: rgba(52, 152, 219, 0.4);
+        }
+
+        .music-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .music-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            padding: 4rem 0 2rem;
+            font-size: 1.3rem;
+            animation: rotate 10s linear infinite;
+            animation-play-state: paused;
+        }
+
+        .music-playing .music-icon {
+            animation-play-state: running;
+        }
+
+        .music-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .music-title {
+            font-weight: 600;
+            color: var(--primary-dark);
+            font-size: 1.1rem;
+        }
+
+        .music-artist {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .music-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .music-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.1);
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .music-btn:hover {
+            background: rgba(52, 152, 219, 0.2);
+            transform: scale(1.1);
+            border-color: rgba(52, 152, 219, 0.4);
+        }
+
+        .volume-slider {
+            width: 100px;
+            height: 5px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(52, 152, 219, 0.2);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .volume-slider::-webkit-slider-thumb:hover {
+            background: var(--primary-light);
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--primary-dark), #1a2530);
+            color: white;
+            padding: 6rem 0 3rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%235dade2' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
         }
 
         .footer-logo {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             color: white;
             text-decoration: none;
             display: inline-block;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .footer-logo span {
@@ -455,53 +665,78 @@
 
         .footer-quote {
             font-style: italic;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 0.8s ease-out both;
+            position: relative;
+            z-index: 1;
+            line-height: 1.8;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .footer-info {
-            margin: 2rem 0;
+            margin: 3rem 0;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
         }
 
         .footer-info p {
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             color: rgba(255, 255, 255, 0.8);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+        }
+
+        .footer-info p:hover {
+            color: white;
+            transform: translateY(-3px);
         }
 
         .copyright {
-            margin-top: 3rem;
-            padding-top: 2rem;
+            margin-top: 4rem;
+            padding-top: 2.5rem;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.6);
+            position: relative;
+            z-index: 1;
         }
 
+        /* Scroll to Top Button */
         .scroll-top {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
+            bottom: 120px;
+            right: 40px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 40px rgba(52, 152, 219, 0.4);
+            transition: var(--transition);
             z-index: 999;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(20px);
+            transform: translateY(30px);
+            border: 2px solid white;
         }
 
         .scroll-top.active {
@@ -511,73 +746,159 @@
         }
 
         .scroll-top:hover {
-            background: var(--primary-light);
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            transform: translateY(-10px) scale(1.15);
+            box-shadow: 0 25px 60px rgba(52, 152, 219, 0.6);
         }
 
-        @media (max-width: 1024px) {
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .gallery-container {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+            
+            .frame {
+                height: 320px;
+            }
+            
             .album-hero h1 {
+                font-size: 4rem;
+            }
+            
+            .footer-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .album-hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title {
                 font-size: 3rem;
             }
-
+            
             .gallery-container {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 2rem;
             }
-
+            
             .frame {
-                height: 280px;
+                height: 300px;
+            }
+            
+            .music-player {
+                flex-direction: column;
+                gap: 15px;
+                padding: 1.5rem;
+                border-radius: 25px;
+                width: 90%;
+                max-width: 400px;
+            }
+            
+            .music-info {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .music-controls {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .footer-info {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 768px) {
             .album-hero {
-                padding: 10rem 0 4rem;
+                padding: 12rem 0 6rem;
             }
-
+            
             .album-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
                 font-size: 2.5rem;
             }
-
-            .section-title {
-                font-size: 2.2rem;
-            }
-
+            
             .gallery-container {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-                gap: 1.5rem;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
-
+            
             .frame {
-                height: 250px;
+                height: 280px;
             }
-
+            
             .header-content {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.5rem;
                 text-align: center;
             }
-
+            
             .back-btn {
                 order: 2;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .album-title {
+                font-size: 1.8rem;
+            }
+            
+            .scroll-top {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+                bottom: 140px;
+                right: 30px;
             }
         }
 
         @media (max-width: 576px) {
             .album-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
                 font-size: 2rem;
             }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
+            
             .gallery-container {
                 grid-template-columns: 1fr;
             }
-
+            
             .frame {
-                height: 220px;
+                height: 250px;
+            }
+            
+            .music-player {
+                padding: 1rem;
+                gap: 12px;
+            }
+            
+            .music-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+            
+            .music-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            
+            .footer-quote {
+                font-size: 1.1rem;
+                padding: 1rem;
+            }
+            
+            .footer-logo {
+                font-size: 2rem;
             }
         }
     </style>
@@ -603,111 +924,183 @@
             <div class="hero-shape hero-shape-3"></div>
         </div>
         <div class="container">
-            <h1>Album Foto <span class="highlight"></span></h1>
-            <span class="music-note"><i class=""></i>Ayaaaaa🫶</span>
+            <h1>Album Foto <span class="highlight">Kenangan</span></h1>
+            <span class="music-note"><i class="fas fa-music"></i></span>
+            <p style="font-size: 1.3rem; color: var(--text-light); max-width: 700px; margin: 0 auto; animation: fadeInUp 0.8s ease-out 0.3s both;">Kumpulan momen indah yang mengabadikan cerita dan kenangan berharga</p>
         </div>
     </section>
 
     <section class="gallery-section">
-    <div class="container">
-        <h2 class="section-title">Kenangan Indah🫶</h2>
-        
-        <div class="gallery-container">
-            <div class="photo-frame-item">
-                <div class="frame frame-1">
-                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
-                        <img src="1.JPG" alt="Momen Bahagia" 
-                             style="width: 100%; height: 100%; object-fit: cover;">
+        <div class="container">
+            <h2 class="section-title">Kenangan Indah🫶</h2>
+            
+            <div class="gallery-container">
+                <div class="photo-frame-item">
+                    <div class="frame frame-1">
+                        <div class="frame-content">
+                            <img src="1.JPG" alt="Momen Bahagia" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        </div>
+                        <div class="frame-overlay">
+                            <div class="frame-title">
+                                <i class="fas fa-heart"></i> Momen Bahagia
+                            </div>
+                            <div class="frame-date">
+                                <i class="far fa-calendar"></i> Kenangan Terindah
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="photo-frame-item">
-                <div class="frame frame-2">
-                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
-                        <img src="2.JPG" alt="Senyum Indah" 
-                             style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="frame-overlay">
+                <div class="photo-frame-item">
+                    <div class="frame frame-2">
+                        <div class="frame-content">
+                            <img src="2.JPG" alt="Senyum Indah" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1494790108755-2616b786d4d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        </div>
+                        <div class="frame-overlay">
+                            <div class="frame-title">
+                                <i class="fas fa-smile"></i> Senyum Indah
+                            </div>
+                            <div class="frame-date">
+                                <i class="far fa-calendar"></i> Cerita Manis
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="photo-frame-item">
-                <div class="frame frame-3">
-                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
-                        <img src="3.JPG" alt="Prestasi" 
-                             style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="frame-overlay">
+                <div class="photo-frame-item">
+                    <div class="frame frame-3">
+                        <div class="frame-content">
+                            <img src="3.JPG" alt="Prestasi" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        </div>
+                        <div class="frame-overlay">
+                            <div class="frame-title">
+                                <i class="fas fa-trophy"></i> Prestasi
+                            </div>
+                            <div class="frame-date">
+                                <i class="far fa-calendar"></i> Pencapaian Gemilang
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="photo-frame-item">
-                <div class="frame frame-4">
-                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
-                        <img src="4.JPG" alt="Foto Kreatif" 
-                             style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="frame-overlay">
+                <div class="photo-frame-item">
+                    <div class="frame frame-4">
+                        <div class="frame-content">
+                            <img src="4.JPG" alt="Foto Kreatif" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        </div>
+                        <div class="frame-overlay">
+                            <div class="frame-title">
+                                <i class="fas fa-paint-brush"></i> Foto Kreatif
+                            </div>
+                            <div class="frame-date">
+                                <i class="far fa-calendar"></i> Ekspresi Seni
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="photo-frame-item">
-                <div class="frame frame-5">
-                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
-                        <img src="5.JPG" alt="Belajar" 
-                             style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="frame-overlay">
+                <div class="photo-frame-item">
+                    <div class="frame frame-5">
+                        <div class="frame-content">
+                            <img src="5.JPG" alt="Belajar" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        </div>
+                        <div class="frame-overlay">
+                            <div class="frame-title">
+                                <i class="fas fa-graduation-cap"></i> Belajar
+                            </div>
+                            <div class="frame-date">
+                                <i class="far fa-calendar"></i> Proses Pendidikan
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="photo-frame-item">
-                <div class="frame frame-6">
-                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
-                        <img src="6.JPG" alt="Kegiatan Seni" 
-                             style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="frame-overlay">
+                <div class="photo-frame-item">
+                    <div class="frame frame-6">
+                        <div class="frame-content">
+                            <img src="6.JPG" alt="Kegiatan Seni" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        </div>
+                        <div class="frame-overlay">
+                            <div class="frame-title">
+                                <i class="fas fa-palette"></i> Kegiatan Seni
+                            </div>
+                            <div class="frame-date">
+                                <i class="far fa-calendar"></i> Kreasi Artistik
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="photo-frame-item">
-                <div class="frame frame-7">
-                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
-                        <img src="7.JPG" alt="Liburan" 
-                             style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="frame-overlay">
+                <div class="photo-frame-item">
+                    <div class="frame frame-7">
+                        <div class="frame-content">
+                            <img src="7.JPG" alt="Liburan" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        </div>
+                        <div class="frame-overlay">
+                            <div class="frame-title">
+                                <i class="fas fa-umbrella-beach"></i> Liburan
+                            </div>
+                            <div class="frame-date">
+                                <i class="far fa-calendar"></i> Petualangan Seru
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="photo-frame-item">
-                <div class="frame frame-8">
-                    <div class="frame-content" style="background: none; padding: 0; overflow: hidden;">
-                        <img src="8.JPG" alt="Pencapaian" 
-                             style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                    <div class="frame-overlay">
+                <div class="photo-frame-item">
+                    <div class="frame frame-8">
+                        <div class="frame-content">
+                            <img src="8.JPG" alt="Pencapaian" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1544717305-99670f9c28f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'">
+                        </div>
+                        <div class="frame-overlay">
+                            <div class="frame-title">
+                                <i class="fas fa-star"></i> Pencapaian
+                            </div>
+                            <div class="frame-date">
+                                <i class="far fa-calendar"></i> Momen Kebanggaan
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+
+    <!-- Music Player -->
+    <div class="music-player" id="musicPlayer">
+        <div class="music-info">
+            <div class="music-icon" id="musicIcon">
+                <i class="fas fa-music"></i>
+            </div>
+            <div class="music-text">
+                <div class="music-title">kota ini tak sama tanpamu</div>
+                <div class="music-artist">Nadhif Basalamah</div>
+            </div>
+        </div>
+        <div class="music-controls">
+            <button class="music-btn" id="playPauseBtn">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="music-btn" id="volumeBtn">
+                <i class="fas fa-volume-up"></i>
+            </button>
+            <input type="range" min="0" max="100" value="50" class="volume-slider" id="volumeSlider">
+        </div>
     </div>
-</section>
 
     <footer>
         <div class="container">
             <a href="index.html" class="footer-logo">Album<span>🫶</span></a>
 
-            <p class="footer-quote">"Waktu memisahkan raga,
-foto menjadi saksi bahwa kebersamaan itu pernah nyata."</p>
+            <p class="footer-quote">"Waktu memisahkan raga, foto menjadi saksi bahwa kebersamaan itu pernah nyata."</p>
 
             <div class="footer-info">
                 <p><i class="fas fa-images"></i> Album Kenangan Nayla Talita</p>
@@ -724,65 +1117,89 @@ foto menjadi saksi bahwa kebersamaan itu pernah nyata."</p>
         </div>
     </footer>
 
-    <div class="scroll-top" id="scrollTop">
+    <button class="scroll-top" id="scrollTop">
         <i class="fas fa-chevron-up"></i>
-    </div>
+    </button>
 
-    <audio id="backgroundMusic" loop style="display: none;">
+    <audio id="backgroundMusic" preload="auto">
         <source src="Nadhif Basalamah - kota ini tak sama tanpamu (Official Lyric Video).mp3" type="audio/mpeg">
+        <source src="https://assets.mixkit.co/music/preview/mixkit-driving-ambition-32.mp3" type="audio/mpeg">
         Browser Anda tidak mendukung elemen audio.
     </audio>
 
     <script>
+        // Audio Player Elements
         const audio = document.getElementById('backgroundMusic');
+        const musicPlayer = document.getElementById('musicPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const volumeBtn = document.getElementById('volumeBtn');
+        const volumeSlider = document.getElementById('volumeSlider');
+        const musicIcon = document.getElementById('musicIcon');
         
-        function playMusicAutomatically() {
-            audio.volume = 0.5; 
-            
-            const playPromise = audio.play();
-            
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    console.log("Musik berhasil diputar otomatis");
-                }).catch(error => {
-                    console.log("Autoplay dicegah:", error);
-                    showPlayHint();
-                });
-            }
-        }
+        // Initialize audio
+        audio.volume = 0.5;
         
-        function showPlayHint() {
-            const hint = document.createElement('div');
-            hint.innerHTML = `
-                <div style="position: fixed; top: 120px; left: 50%; transform: translateX(-50%); 
-                           background: rgba(52, 152, 219, 0.9); padding: 12px 20px; border-radius: 25px; 
-                           box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 10000; text-align: center;
-                           color: white; font-weight: 500; cursor: pointer; backdrop-filter: blur(10px);
-                           border: 2px solid white; min-width: 300px;">
-                    <i class="fas fa-music" style="margin-right: 8px;"></i>
-                    <span>Klik untuk memutar musik "Kota Ini Tak Sama Tanpamu"</span>
-                </div>
-            `;
-            document.body.appendChild(hint);
-            
-            hint.addEventListener('click', function() {
+        // Play/Pause functionality
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
                 audio.play();
-                hint.style.opacity = '0';
-                setTimeout(() => hint.remove(), 500);
-            });
-            
-            setTimeout(() => {
-                if (hint.parentNode) {
-                    hint.style.opacity = '0';
-                    setTimeout(() => hint.remove(), 500);
-                }
-            }, 15000);
-        }
-        
-        window.addEventListener('load', () => {
-            setTimeout(playMusicAutomatically, 1000);
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                musicPlayer.classList.add('music-playing');
+            } else {
+                audio.pause();
+                playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+                musicPlayer.classList.remove('music-playing');
+            }
         });
         
+        // Volume control
+        volumeSlider.addEventListener('input', (e) => {
+            audio.volume = e.target.value / 100;
+            
+            // Update volume icon based on level
+            if (e.target.value == 0) {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else if (e.target.value < 50) {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-down"></i>';
+            } else {
+                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        });
+        
+        // Mute/unmute functionality
+        volumeBtn.addEventListener('click', () => {
+            if (audio.volume > 0) {
+                audio.volume = 0;
+                volumeSlider.value = 0;
+                volumeBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                audio.volume = 0.5;
+                volumeSlider.value = 50;
+                volumeBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
+        });
+        
+        // Auto-play with user interaction
+        const playMusicOnInteraction = () => {
+            audio.play().then(() => {
+                playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                musicPlayer.classList.add('music-playing');
+            }).catch(e => {
+                console.log("Autoplay prevented. Waiting for user interaction.");
+                musicPlayer.style.opacity = '1';
+                musicPlayer.style.transform = 'translateX(-50%) scale(1.1)';
+            });
+            
+            // Remove event listeners after first interaction
+            document.removeEventListener('click', playMusicOnInteraction);
+            document.removeEventListener('touchstart', playMusicOnInteraction);
+        };
+        
+        // Set up interaction listeners
+        document.addEventListener('click', playMusicOnInteraction);
+        document.addEventListener('touchstart', playMusicOnInteraction);
+        
+        // Scroll functionality
         window.addEventListener('scroll', () => {
             const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
             const scrollTopBtn = document.getElementById('scrollTop');
@@ -792,8 +1209,18 @@ foto menjadi saksi bahwa kebersamaan itu pernah nyata."</p>
             } else {
                 scrollTopBtn.classList.remove('active');
             }
+            
+            // Parallax effect for hero shapes
+            const shapes = document.querySelectorAll('.hero-shape');
+            shapes.forEach(shape => {
+                const speed = shape.classList.contains('hero-shape-1') ? 0.3 :
+                             shape.classList.contains('hero-shape-2') ? 0.5 : 0.7;
+                const yPos = -(scrollTop * speed);
+                shape.style.transform = `translateY(${yPos}px)`;
+            });
         });
 
+        // Scroll to top button
         document.getElementById('scrollTop').addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
@@ -801,53 +1228,116 @@ foto menjadi saksi bahwa kebersamaan itu pernah nyata."</p>
             });
         });
 
+        // Gallery animations
         const animateFrames = () => {
             const frames = document.querySelectorAll('.photo-frame-item');
             
             frames.forEach((frame, index) => {
                 const framePosition = frame.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.2;
+                const screenPosition = window.innerHeight / 1.3;
                 
                 if (framePosition < screenPosition) {
-                    frame.style.animationDelay = `${index * 0.1}s`;
                     frame.style.opacity = '1';
+                    frame.style.transform = 'translateY(0)';
+                    frame.style.transitionDelay = `${index * 0.1}s`;
                 }
             });
         };
 
-        window.addEventListener('load', animateFrames);
+        // Initialize animations
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                animateFrames();
+                musicPlayer.style.opacity = '1';
+                musicPlayer.style.transform = 'translateX(-50%)';
+            }, 300);
+        });
+
         window.addEventListener('scroll', animateFrames);
 
+        // Frame click effects
         document.querySelectorAll('.frame').forEach(frame => {
             frame.addEventListener('click', function() {
+                // Add click animation
                 this.style.animation = 'pulse 0.5s ease';
+                
+                // Remove animation after it completes
                 setTimeout(() => {
                     this.style.animation = '';
                 }, 500);
-                const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3');
-                clickSound.volume = 0.3;
-                clickSound.play().catch(e => console.log("Sound play error:", e));
+                
+                // Play click sound if possible
+                try {
+                    const clickSound = new Audio('https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3');
+                    clickSound.volume = 0.2;
+                    clickSound.play();
+                } catch (e) {
+                    console.log("Could not play click sound");
+                }
             });
             
+            // Volume adjustment on hover
             frame.addEventListener('mouseenter', function() {
                 if (!audio.paused) {
-                    audio.volume = 0.3; 
+                    audio.volume = Math.min(0.3, audio.volume);
                 }
             });
             
             frame.addEventListener('mouseleave', function() {
                 if (!audio.paused) {
-                    audio.volume = 0.5; 
+                    audio.volume = volumeSlider.value / 100;
                 }
             });
         });
 
-        document.addEventListener('touchstart', function() {}, {passive: true});
-        
+        // Handle image loading errors
+        document.querySelectorAll('img').forEach(img => {
+            img.addEventListener('error', function() {
+                if (!this.getAttribute('data-fallback-set')) {
+                    this.setAttribute('data-fallback-set', 'true');
+                    
+                    // Try different fallback images based on the frame
+                    const frameClass = this.closest('.frame').className.split(' ')[1];
+                    const fallbackUrls = {
+                        'frame-1': 'https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'frame-2': 'https://images.unsplash.com/photo-1494790108755-2616b786d4d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'frame-3': 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'frame-4': 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'frame-5': 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'frame-6': 'https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'frame-7': 'https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                        'frame-8': 'https://images.unsplash.com/photo-1544717305-99670f9c28f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+                    };
+                    
+                    this.src = fallbackUrls[frameClass] || 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+                }
+            });
+        });
+
+        // Handle page visibility changes
         document.addEventListener('visibilitychange', function() {
             if (!document.hidden && audio.paused) {
-                audio.play().catch(e => console.log("Play error on visibility change:", e));
+                // Resume audio when page becomes visible
+                audio.play().catch(e => console.log("Could not resume audio"));
             }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
         });
     </script>
 </body>
