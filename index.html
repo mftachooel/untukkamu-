@@ -56,7 +56,7 @@
             padding: 0 20px;
         }
 
-        /* Animations */
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -129,7 +129,6 @@
             }
         }
 
-        /* Header */
         header {
             background-color: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(12px);
@@ -243,7 +242,6 @@
             background: rgba(52, 152, 219, 0.2);
         }
 
-        /* Hero Section */
         .hero {
             padding: 16rem 0 10rem;
             background: linear-gradient(135deg, #f5f9ff 0%, #e8f4ff 100%);
@@ -409,7 +407,6 @@
             transform: translateX(8px);
         }
 
-        /* Profile Image */
         .hero-image {
             position: relative;
             animation: fadeInRight 1s ease-out 0.3s both;
@@ -482,7 +479,6 @@
             transform: translateX(-50%);
         }
 
-        /* Sections */
         section {
             padding: 8rem 0;
             position: relative;
@@ -514,7 +510,6 @@
             border-radius: 3px;
         }
 
-        /* About Section */
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -625,7 +620,6 @@
             transform: scale(1.08);
         }
 
-        /* School Section */
         .school-section {
             background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%);
             position: relative;
@@ -748,7 +742,6 @@
             font-weight: 500;
         }
 
-        /* Contact Section */
         .contact-section {
             background: linear-gradient(135deg, #f8f9fa 0%, #e8ecef 100%);
         }
@@ -1220,10 +1213,10 @@
                 </button>
 
                 <ul class="nav-links" id="navLinks">
-                    <li><a href="#home">🏠 Beranda</a></li>
-                    <li><a href="#about">👤 Tentang Ayaaaaa🫶</a></li>
-                    <li><a href="#school">🏫 Sekolah Kuuu</a></li>
-                    <li><a href="#contact">📞 Hubungi Aku🫶</a></li>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#about">Tentang Ku</a></li>
+                    <li><a href="#school">Sekolah Kuuu</a></li>
+                    <li><a href="#contact">Hubungi Aku</a></li>
                 </ul>
             </nav>
         </div>
@@ -1265,31 +1258,31 @@
                     <div class="info-grid">
                         <div class="info-card">
                             <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
-                            <div class="info-label">📅 Tanggal Lahir</div>
+                            <div class="info-label">Tanggal Lahir</div>
                             <div>27 Januari 2009</div>
                         </div>
 
                         <div class="info-card">
                             <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
-                            <div class="info-label">📍 Tempat Lahir</div>
+                            <div class="info-label">Tempat Lahir</div>
                             <div>Bogor, Jawa Barat</div>
                         </div>
 
                         <div class="info-card">
                             <div class="info-icon"><i class="fas fa-palette"></i></div>
-                            <div class="info-label">🎨 Warna Favorit</div>
+                            <div class="info-label">Warna Favorit</div>
                             <div>Biru</div>
                         </div>
 
                         <div class="info-card">
                             <div class="info-icon"><i class="fas fa-utensils"></i></div>
-                            <div class="info-label">🍜 Makanan Favorit</div>
+                            <div class="info-label">Makanan Favorit</div>
                             <div>Indomie</div>
                         </div>
                         
                         <div class="info-card">
                             <div class="info-icon"><i class="fas fa-images"></i></div>
-                            <div class="info-label">📸 Album Foto</div>
+                            <div class="info-label">Album Foto</div>
                             <div><a href="album.html" style="color: var(--primary); text-decoration: none; font-weight: 500;">Lihat Album <i class="fas fa-arrow-right"></i></a></div>
                         </div>
                     </div>
@@ -1416,7 +1409,6 @@
     </button>
 
     <script>
-        // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
 
@@ -1427,7 +1419,6 @@
                 : '<i class="fas fa-bars"></i>';
         });
 
-        // Close mobile menu when clicking on a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
@@ -1435,7 +1426,6 @@
             });
         });
 
-        // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
             const navbar = document.querySelector('.navbar');
@@ -1449,7 +1439,6 @@
                 navbar.style.padding = '1.8rem 0';
             }
 
-            // Scroll to top button
             const scrollTopBtn = document.getElementById('scrollTop');
             if (scrollTop > 500) {
                 scrollTopBtn.classList.add('active');
@@ -1458,7 +1447,6 @@
             }
         });
 
-        // Scroll to top functionality
         document.getElementById('scrollTop').addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
@@ -1466,7 +1454,6 @@
             });
         });
 
-        // Animate elements on scroll
         const animateOnScroll = () => {
             const elements = document.querySelectorAll('.section-title, .school-container, .info-card, .contact-container, .about-image, .hero-text');
 
@@ -1481,17 +1468,14 @@
             });
         };
 
-        // Initialize animations on load
         window.addEventListener('load', () => {
             setTimeout(() => {
                 animateOnScroll();
             }, 300);
         });
 
-        // Animate on scroll
         window.addEventListener('scroll', animateOnScroll);
 
-        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1509,7 +1493,6 @@
             });
         });
 
-        // Add hover effects to cards
         document.querySelectorAll('.info-card, .school-card, .contact-card').forEach(card => {
             card.addEventListener('mouseenter', function () {
                 this.style.transform = 'translateY(-12px) scale(1.02)';
@@ -1520,7 +1503,6 @@
             });
         });
 
-        // Contact icon animation
         document.querySelectorAll('.contact-icon').forEach(icon => {
             icon.addEventListener('mouseenter', function () {
                 this.style.animation = 'pulse 1.5s infinite';
@@ -1531,7 +1513,6 @@
             });
         });
 
-        // Add floating animation to shapes
         const shapes = document.querySelectorAll('.shape');
         shapes.forEach((shape, index) => {
             shape.style.animationDelay = `${index * 3}s`;
